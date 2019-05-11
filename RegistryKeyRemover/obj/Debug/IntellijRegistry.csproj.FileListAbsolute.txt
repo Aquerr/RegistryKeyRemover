@@ -1,0 +1,7 @@
+D:\Git-Projects\Visual Studio Repos\IntellijRegistry\IntellijRegistry\bin\Debug\IntellijRegistry.exe.config
+D:\Git-Projects\Visual Studio Repos\IntellijRegistry\IntellijRegistry\bin\Debug\IntellijRegistry.exe
+D:\Git-Projects\Visual Studio Repos\IntellijRegistry\IntellijRegistry\bin\Debug\IntellijRegistry.pdb
+D:\Git-Projects\Visual Studio Repos\IntellijRegistry\IntellijRegistry\obj\Debug\IntellijRegistry.csprojAssemblyReference.cache
+D:\Git-Projects\Visual Studio Repos\IntellijRegistry\IntellijRegistry\obj\Debug\IntellijRegistry.csproj.CoreCompileInputs.cache
+D:\Git-Projects\Visual Studio Repos\IntellijRegistry\IntellijRegistry\obj\Debug\IntellijRegistry.exe
+D:\Git-Projects\Visual Studio Repos\IntellijRegistry\IntellijRegistry\obj\Debug\IntellijRegistry.pdb

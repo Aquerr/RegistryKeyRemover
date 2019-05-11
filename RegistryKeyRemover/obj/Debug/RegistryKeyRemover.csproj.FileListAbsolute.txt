@@ -1,0 +1,14 @@
+D:\Git-Projects\Visual Studio Repos\IntellijRegistry\IntellijRegistry\bin\Debug\IntellijRegistry.exe.config
+D:\Git-Projects\Visual Studio Repos\IntellijRegistry\IntellijRegistry\bin\Debug\IntellijRegistry.exe
+D:\Git-Projects\Visual Studio Repos\IntellijRegistry\IntellijRegistry\bin\Debug\IntellijRegistry.pdb
+D:\Git-Projects\Visual Studio Repos\IntellijRegistry\IntellijRegistry\obj\Debug\RegistryKeyRemover.csprojAssemblyReference.cache
+D:\Git-Projects\Visual Studio Repos\IntellijRegistry\IntellijRegistry\obj\Debug\RegistryKeyRemover.csproj.CoreCompileInputs.cache
+D:\Git-Projects\Visual Studio Repos\IntellijRegistry\IntellijRegistry\obj\Debug\IntellijRegistry.exe
+D:\Git-Projects\Visual Studio Repos\IntellijRegistry\IntellijRegistry\obj\Debug\IntellijRegistry.pdb
+D:\Git-Projects\Visual Studio Repos\RegistryKeyRemover\RegistryKeyRemover\bin\Debug\IntellijRegistry.exe.config
+D:\Git-Projects\Visual Studio Repos\RegistryKeyRemover\RegistryKeyRemover\bin\Debug\IntellijRegistry.exe
+D:\Git-Projects\Visual Studio Repos\RegistryKeyRemover\RegistryKeyRemover\bin\Debug\IntellijRegistry.pdb
+D:\Git-Projects\Visual Studio Repos\RegistryKeyRemover\RegistryKeyRemover\obj\Debug\RegistryKeyRemover.csprojAssemblyReference.cache
+D:\Git-Projects\Visual Studio Repos\RegistryKeyRemover\RegistryKeyRemover\obj\Debug\RegistryKeyRemover.csproj.CoreCompileInputs.cache
+D:\Git-Projects\Visual Studio Repos\RegistryKeyRemover\RegistryKeyRemover\obj\Debug\IntellijRegistry.exe
+D:\Git-Projects\Visual Studio Repos\RegistryKeyRemover\RegistryKeyRemover\obj\Debug\IntellijRegistry.pdb
