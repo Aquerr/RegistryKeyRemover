@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{60355E58-3631-43DD-9C57-9A887E0BA390}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>IntellijRegistry</RootNamespace>
-    <AssemblyName>IntellijRegistry</AssemblyName>
+    <RootNamespace>RegistryKeyRemover</RootNamespace>
+    <AssemblyName>RegistryKeyRemover</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
