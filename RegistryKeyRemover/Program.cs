@@ -92,7 +92,7 @@ namespace RegistryKeyRemover
         {
             foreach (string phrase in Phrases)
             {
-                if (value.Contains(phrase))
+                if (value.ToLower().Contains(phrase.ToLower()))
                 {
                     return true;
                 }       
