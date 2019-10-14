@@ -38,10 +38,12 @@ namespace RegistryKeyRemover
             Console.ReadKey();
         }
 
-        private static void CheckAndRemoveKey(RegistryKey registryKey)
+        private static bool CheckAndRemoveKey(RegistryKey registryKey)
         {
+            bool shouldRemoveKey = false;
+
             if(registryKey == null)
-                return;
+                return shouldRemoveKey;
 
             Console.WriteLine("Checking RegistryKey: " + registryKey.Name);
             if(registryKey.SubKeyCount > 0)
@@ -60,7 +62,11 @@ namespace RegistryKeyRemover
                     try
                     {
                         RegistryKey key = registryKey.OpenSubKey(subKeyName);
-                        CheckAndRemoveKey(key);
+                        bool shouldRemoveSubKey = CheckAndRemoveKey(key);
+                        if(shouldRemoveSubKey)
+                        {
+                            registryKey.DeleteSubKey(subKeyName);
+                        }
                     }
                     catch (Exception e)
                     {
@@ -79,13 +85,15 @@ namespace RegistryKeyRemover
                     {
                         if (ContainsPhrase(valueAsString))
                         {
-                            Console.WriteLine("Removing value: " + valueName);
-                            RemovedKeys.Add(valueName);
-                            registryKey.DeleteValue(valueName);
+                            Console.WriteLine("Removing value: " + valueAsString);
+                            RemovedKeys.Add(valueAsString);
+                            //registryKey.DeleteValue(valueAsString);
+                            shouldRemoveKey = true;
                         }
                     }
                 }
             }
+            return shouldRemoveKey;
         }
 
         private static bool ContainsPhrase(string value)
