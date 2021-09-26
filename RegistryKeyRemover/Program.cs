@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Threading;
 using Microsoft.Win32;
+using System.Threading.Tasks;
 
 namespace RegistryKeyRemover
 {
@@ -26,12 +27,18 @@ namespace RegistryKeyRemover
 
             Console.WriteLine("Starting looking up keys in registry... ");
 
-            CheckAndRemoveKey(Registry.ClassesRoot);
-            CheckAndRemoveKey(Registry.CurrentConfig);
-            CheckAndRemoveKey(Registry.CurrentUser);
-            CheckAndRemoveKey(Registry.LocalMachine);
-            CheckAndRemoveKey(Registry.Users);
+            Task classsesRootTask = Task.Run(() => CheckAndRemoveKey(Registry.ClassesRoot));
+            Task currentConfigTask = Task.Run(() => CheckAndRemoveKey(Registry.CurrentConfig));
+            Task currentUserTask = Task.Run(() => CheckAndRemoveKey(Registry.CurrentUser));
+            Task localMachineTask = Task.Run(() => CheckAndRemoveKey(Registry.LocalMachine));
+            Task usersTask = Task.Run(() => CheckAndRemoveKey(Registry.Users));
 
+            Task task = Task.WhenAll(new Task[]{ classsesRootTask, currentConfigTask, currentUserTask, localMachineTask, usersTask }).ContinueWith((task1) => PrintCompletion());
+            task.Wait();
+        }
+
+        private static void PrintCompletion()
+        {
             Console.WriteLine("Finished dealing with registry.");
             Console.WriteLine("Removed keys count = " + RemovedKeys.Count);
             Console.WriteLine("Removed keys = " + string.Join(", ", RemovedKeys.ToArray()));
@@ -40,14 +47,17 @@ namespace RegistryKeyRemover
 
         private static bool CheckAndRemoveKey(RegistryKey registryKey)
         {
+            bool hasSubKeys = true;
+            bool hasValues = true;
             bool shouldRemoveKey = false;
 
             if(registryKey == null)
                 return shouldRemoveKey;
 
-            Console.WriteLine("Checking RegistryKey: " + registryKey.Name);
             if(registryKey.SubKeyCount > 0)
             {
+                int subKeyCount = registryKey.SubKeyCount;
+                int removedSubKeys = 0;
                 string[] subKeyNames = new string[0];
                 try
                 {
@@ -61,38 +71,65 @@ namespace RegistryKeyRemover
                 {
                     try
                     {
-                        RegistryKey key = registryKey.OpenSubKey(subKeyName);
+                        if(subKeyName.Equals("UserSettings"))
+                        {
+                            Console.WriteLine("BOOM");
+                        }
+
+                        RegistryKey key = registryKey.OpenSubKey(subKeyName, true);
                         bool shouldRemoveSubKey = CheckAndRemoveKey(key);
                         if(shouldRemoveSubKey)
                         {
                             registryKey.DeleteSubKey(subKeyName);
+                            removedSubKeys++;
                         }
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine(e);
+                        Console.WriteLine("Can't open key: " + subKeyName);
                     }
                 }
+
+                if (subKeyCount == removedSubKeys)
+                    hasSubKeys = false;
             }
 
             if(registryKey.ValueCount > 0)
             {
+                int keyValuesCount = registryKey.ValueCount;
+                int removedValuesForKey = 0;
                 string[] valueNames = registryKey.GetValueNames();
                 foreach (string valueName in valueNames)
                 {
-                    object value = registryKey.GetValue(valueName);
-                    if (value is string valueAsString)
+                    if(ContainsPhrase(valueName))
                     {
-                        if (ContainsPhrase(valueAsString))
-                        {
-                            Console.WriteLine("Removing value: " + valueAsString);
-                            RemovedKeys.Add(valueAsString);
-                            //registryKey.DeleteValue(valueAsString);
-                            shouldRemoveKey = true;
-                        }
+                        Console.WriteLine("Removing valuename: " + valueName);
+                        RemovedKeys.Add(valueName);
+                        registryKey.DeleteValue(valueName);
+                        removedValuesForKey++;
+                        //continue;
                     }
+
+                    //object value = registryKey.GetValue(valueName);
+                    //if (value is string valueAsString)
+                    //{
+                    //    if (ContainsPhrase(valueAsString))
+                    //    {
+                    //        Console.WriteLine("Removing value: " + valueAsString);
+                    //        RemovedKeys.Add(valueAsString);
+                    //        registryKey.DeleteValue(valueName);
+                    //        removedValuesForKey++;
+                    //    }
+                    //}
                 }
+
+                if (keyValuesCount == removedValuesForKey)
+                    hasValues = false;
             }
+
+            if (!hasValues && !hasSubKeys)
+                shouldRemoveKey = true;
+
             return shouldRemoveKey;
         }
 
